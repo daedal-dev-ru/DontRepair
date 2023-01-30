@@ -1,0 +1,22 @@
+name: DontRepair
+version: '${project.version}'
+main: daedal.dontrepair.DontRepair
+api-version: 1.17
+prefix: DontRepair
+depend: [ Essentials ]
+authors: [ Daedal ]
+description: Repair block plugin for QueerZizz
+website: vk.com/daedalstudio
+permissions:
+  dontrepair.prevent:
+    description: "Запрещает игроку ремонтировать помеченные предметы"
+  dontrepair.admin:
+    description: "Разрешает помечать предметы"
+    default: op
+  dontrepair.allow:
+    description: "Разрешает игроку ремонтировать помеченные предметы"
+commands:
+  dontrepair:
+    description: "Основная команда плагина"
+    permission: dontrepair.admin
+    usage: "/<command>"
