@@ -9,15 +9,14 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Objects;
+
 public class CommandListener implements Listener {
 
     @EventHandler
     public void onRepair(PlayerCommandPreprocessEvent event) {
         String cmd = event.getMessage();
-        if (!cmd.equalsIgnoreCase("/repair")) {
-            return;
-        }
-        if (!cmd.equalsIgnoreCase("/fix")) {
+        if (!DontRepair.getInstance().getConfig().getStringList("repairCommands").contains(cmd)) {
             return;
         }
         Player sender = event.getPlayer();
@@ -26,7 +25,7 @@ public class CommandListener implements Listener {
             return;
         }
         if (!sender.hasPermission("dontrepair.allow")) {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', DontRepair.getInstance().getConfig().getString("message")));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(DontRepair.getInstance().getConfig().getString("message"))));
             event.setCancelled(true);
         }
     }

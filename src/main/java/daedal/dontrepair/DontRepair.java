@@ -17,6 +17,7 @@ public final class DontRepair extends JavaPlugin {
     @Override
     public void onEnable() {
         long start = System.currentTimeMillis();
+        saveDefaultConfig();
         setupEvents();
         setupCommands();
         setInstance();
