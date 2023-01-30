@@ -24,7 +24,10 @@ public class CommandListener implements Listener {
         CommandSender sender = event.getSender();
         Player p = sender.getServer().getPlayer(sender.getName());
         ItemStack item = p.getInventory().getItemInMainHand();
-        if (item.getItemFlags().contains(ItemFlag.HIDE_ATTRIBUTES)) {
+        if (!item.getItemFlags().contains(ItemFlag.HIDE_ATTRIBUTES)) {
+            return;
+        }
+        if (!sender.hasPermission("dontrepair.allow")) {
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', DontRepair.getInstance().getConfig().getString("message")));
             event.setCancelled(true);
         }
