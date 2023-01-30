@@ -2,28 +2,26 @@ package daedal.dontrepair.listeners;
 
 import daedal.dontrepair.DontRepair;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.server.ServerCommandEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
 public class CommandListener implements Listener {
 
     @EventHandler
-    public void onRepair(ServerCommandEvent event) {
-        String cmd = event.getCommand();
-        if (!cmd.equalsIgnoreCase("repair")) {
+    public void onRepair(PlayerCommandPreprocessEvent event) {
+        String cmd = event.getMessage();
+        if (!cmd.equalsIgnoreCase("/repair")) {
             return;
         }
-        if (!cmd.equalsIgnoreCase("fix")) {
+        if (!cmd.equalsIgnoreCase("/fix")) {
             return;
         }
-        CommandSender sender = event.getSender();
-        Player p = sender.getServer().getPlayer(sender.getName());
-        ItemStack item = p.getInventory().getItemInMainHand();
+        Player sender = event.getPlayer();
+        ItemStack item = sender.getInventory().getItemInMainHand();
         if (!item.getItemFlags().contains(ItemFlag.HIDE_ATTRIBUTES)) {
             return;
         }
